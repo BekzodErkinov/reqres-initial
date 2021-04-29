@@ -4,10 +4,7 @@ import { Link } from 'react-router-dom'
 // Services
 import request from '../../services/http'
 
-// SCSS
-import './Auth.scss'
-
-const Login = () => {
+const Login = ({ setToken }) => {
   const emailInputRef = useRef(null)
   const passInputRef  = useRef(null)
 
@@ -21,9 +18,12 @@ const Login = () => {
       password: passInputRef.current.value,
     })
     .then(res => {
-      alert('Success')
+      window.localStorage.setItem('sessionToken', res.data.token)
+      setToken(res.data.token)
     })
     .catch(err => {
+      alert(err)
+      console.error(err)
       setHasError(true)
     })
   }
@@ -46,12 +46,12 @@ const Login = () => {
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                    <input ref={emailInputRef} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                    <input ref={emailInputRef} type="email" className="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" />
                     <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                   </div>
                   <div className="mb-3">
                     <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                    <input ref={passInputRef} type="password" className="form-control" id="exampleInputPassword1" />
+                    <input ref={passInputRef} type="password" className="form-control" name="password" id="exampleInputPassword1" />
                   </div>
                   <button type="submit" className="btn btn-primary">Submit</button>
                 </form>

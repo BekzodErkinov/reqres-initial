@@ -1,6 +1,3 @@
-// SCSS
-import './Error.scss'
-
 const Error = () => {
   return (
     <div>
