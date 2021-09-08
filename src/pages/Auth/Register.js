@@ -15,7 +15,7 @@ const Register = ({ setToken }) => {
     e.preventDefault()
 
     if (passInputRef.current.value === passCheckInputRef.current.value) {
-      request.post('/login', {
+      request.post('/register', {
         email: emailInputRef.current.value,
         password: passInputRef.current.value,
       })
